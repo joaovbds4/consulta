@@ -3,19 +3,18 @@ const app = express();
 app.use(express.json());
 const baseConsulta = {};
 const funcoes = {
-    LembreteCriado: (lembrete) => {
-        baseConsulta[lembrete.contador] = lembrete;
+    ClienteCriado: (cliente) => {
+        baseConsulta[cliente.contador] = cliente;
     },
-    ObservacaoCriada: (observacao) => {
-        const observacoes =
-            baseConsulta[observacao.lembreteId]["observacoes"] || [];
-        observacoes.push(observacao);
-        baseConsulta[observacao.lembreteId]["observacoes"] =
-            observacoes;
+    IngressoCriado: (ingresso) => {
+        const ingressos =
+            baseConsulta[ingresso.clienteId]["ingressos"] || [];
+            ingressos.push(ingresso);
+            baseConsulta[ingresso.clienteId]["ingressos"] = ingressos;
     }
 };
 
-app.get("/lembretes", (req, res) => {
+app.get("/clientes", (req, res) => {
     res.status(200).send(baseConsulta);
 });
 app.post("/eventos", (req, res) => {
